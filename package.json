@@ -1,0 +1,24 @@
+{
+  "name": "tbrpg",
+  "version": "0.0.1",
+  "description": "A crappy turn-based rpg writting in ts. Please dont hate me.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Muckbuck/tbrpg.git"
+  },
+  "author": "Eric Rosenborg",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Muckbuck/tbrpg/issues"
+  },
+  "homepage": "https://github.com/Muckbuck/tbrpg#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "phaser": "^3.22.0",
+    "typescript": "^3.7.5"
+  }
+}
