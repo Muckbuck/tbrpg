@@ -1,4 +1,4 @@
-var React = require('react');
+let React = require('react');
 
 function HelloMessage(props) {
   return <div>Hello {props.name}</div>;
