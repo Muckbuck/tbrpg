@@ -1,8 +1,13 @@
 const express = require('express')
 const router = express.Router();
 const app = express()
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
 const index = require('../src/routes/index.ts')
 const hbs = require( 'express-handlebars');
+
+http.listen(3000)
 
 // View engine
 app.set('views', '../views/pages');
@@ -14,10 +19,17 @@ app.engine( 'hbs', hbs( {
     partialsDir: __dirname + '/../views/partials/'
 }));
 
+io.on('connection', function (socket: any) {
+    socket.emit('news', { hello: 'world' });
+    socket.on('my other event', function (data: any) {
+        console.log(data);
+    });
+});
+
 // Static files
 app.use(express.static('public'));
 
-// Routes
+// Actual routing
 app.get('/', index);
 
 app.get('/home', function(req:any, res:any, next:any) {
@@ -25,4 +37,3 @@ app.get('/home', function(req:any, res:any, next:any) {
   });
 
 
-app.listen(3000)
