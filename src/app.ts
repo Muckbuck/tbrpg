@@ -6,6 +6,8 @@ const path = require('path');
 const io = require('socket.io')(http);
 const sass = require('sass');
 const hbs = require( 'express-handlebars');
+const sassMw = require('node-sass-middleware');
+
 
 const home = require('../src/routes/home.ts')
 
@@ -14,17 +16,18 @@ http.listen(port, () => {
     console.log(`Listening on port: ${port}` )
 });
 
-// Static files
+app.use(sassMw({
+    /* Options */
+    src: path.join(__dirname, '/../src/public/sass'),
+    dest: path.join(__dirname, '/../src/public/css'),
+    debug: true,
+    outputStyle: 'compressed',
+    prefix:  '/css'  // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/>
+}));
+
+// Static files (Has to be declared after Sass)
 const static_path = path.join(__dirname, '/public/');
 app.use(express.static(static_path));
-
-/* var result = sass.renderSync({
-    file: __dirname + '/../public/sass/main.scss',
-    outFile: __dirname + '/../public/css/main.css',
-    sourceMap: true
-  })
-*/
-
 
 // View engine
 app.set('views', __dirname + '/../views/pages');
