@@ -2,26 +2,28 @@ const express = require('express')
 const router = express.Router();
 const app = express()
 const http = require('http').Server(app);
+const path = require('path');
 const io = require('socket.io')(http);
 const sass = require('sass');
 const hbs = require( 'express-handlebars');
 
-const index = require('../src/routes/index.ts')
+const home = require('../src/routes/home.ts')
 
-http.listen(3000)
+const port = 3000;
+http.listen(port, () => {
+    console.log(`Listening on port: ${port}` )
+});
 
 // Static files
-app.use('/src/public', express.static('public'));
-
+const static_path = path.join(__dirname, '/public/');
+app.use(express.static(static_path));
 
 /* var result = sass.renderSync({
     file: __dirname + '/../public/sass/main.scss',
     outFile: __dirname + '/../public/css/main.css',
     sourceMap: true
   })
-  
-console.log("HEY")
-console.log(result.map.toString()); */
+*/
 
 
 // View engine
@@ -41,13 +43,5 @@ io.on('connection', function (socket: any) {
     });
 });
 
-
-
-// Actual routing
-app.get('/', index);
-
-app.get('/home', function(req:any, res:any, next:any) {
-    res.render('home', {layout: 'home', template: 'home-template'});
-  });
-
-
+//  Routing
+app.get('/', home);
