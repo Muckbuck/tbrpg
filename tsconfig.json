@@ -4,10 +4,12 @@
       "noImplicitAny": true,
       "removeComments": true,
       "preserveConstEnums": true,
-      "outFile": "./src/built/tsc.js",
+      "outDir": "src/public/scripts/built/",
       "sourceMap": true,
       "skipLibCheck": true
     },
-    "include": ["src/**/*"],
+    "include": [
+      "src/public/scripts/ts/*"
+    ],
     "exclude": ["node_modules", "**/*.spec.ts"]
 }
