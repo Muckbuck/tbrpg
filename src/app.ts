@@ -1,16 +1,17 @@
 const express = require('express')
-const router = express.Router();
 const app = express()
 const http = require('http').Server(app);
-const path = require('path');
 const io = require('socket.io')(http);
+const path = require('path');
 const sass = require('sass');
 const hbs = require( 'express-handlebars');
 const sassMw = require('node-sass-middleware');
 
 
+// Require routes
 const home = require('../src/routes/home.ts')
 
+// Set server to listen at given port
 const port = 3000;
 http.listen(port, () => {
     console.log(`Listening on port: ${port}` )
@@ -39,6 +40,7 @@ app.engine( 'hbs', hbs( {
     partialsDir: __dirname + '/../views/partials/'
 }));
 
+// Listen for connection event
 io.on('connection', function (socket: any) {
     socket.emit('news', { hello: 'world' });
     socket.on('my other event', function (data: any) {

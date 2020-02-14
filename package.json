@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "tsc && browserify src/public/scripts/built/app.js -o bundle.js && nodemon src/app.ts"
+    "server": "tsc && browserify src/public/scripts/built/app.js -o bundle.js && nodemon src/app.ts",
+    "bundle": "browserify src/public/scripts/built/app.js -o bundle.js"
   },
   "repository": {
     "type": "git",
