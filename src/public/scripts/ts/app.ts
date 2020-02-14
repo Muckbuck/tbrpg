@@ -1,5 +1,5 @@
-const client_socket = require('./client_socket');
+const ClientSocket = require('./ClientSocket');
 
-const cs = new client_socket();
+const cs = new ClientSocket();
 
 cs.connect();
