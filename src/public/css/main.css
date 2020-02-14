@@ -1,3 +1,1 @@
-body {
-    
-}
+body{margin:0}.layout{display:grid;width:100%;height:100vh;grid-template-columns:7fr 3fr;grid-template-rows:4fr 3fr 96px;grid-template-areas:"grid panel-one" "grid panel-two" "actionbar actionbar"}.layout__grid{grid-area:grid;background:rebeccapurple}.layout__panel--one{grid-area:panel-one;background:cyan}.layout__panel--two{grid-area:panel-two;background:orange}.layout__actionbar{grid-area:actionbar;background:gold;padding:8px}.layout__action{display:inline-block;width:80px;height:80px;background-color:paleturquoise;border:2px solid paleturquoise;margin-right:8px;box-sizing:border-box}.layout__action:hover{cursor:pointer;border:2px solid mediumvioletred}
