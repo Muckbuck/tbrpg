@@ -1,12 +1,13 @@
 {
   "name": "tbrpg",
   "version": "0.0.1",
-  "description": "A crappy turn-based rpg writting in ts. Please dont hate me.",
+  "description": "A crappy turn-based rpg written in ts. Please don't hate me.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "tsc && browserify src/public/scripts/built/app.js -o bundle.js && nodemon src/app.ts",
-    "bundle": "browserify src/public/scripts/built/app.js -o bundle.js"
+    "server": "nodemon src/app.ts",
+    "bundle": "browserify src/public/scripts/built/app.js -o bundle.js",
+    "prestart": "tsc && cd src/public/scripts/built/ && browserify app.js -o bundle.js && cd ../../../../"
   },
   "repository": {
     "type": "git",

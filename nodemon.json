@@ -1,0 +1,6 @@
+{
+    "watch": [
+      "./src"
+    ],
+    "exec": "npm run prestart && ts-node src/app.ts"
+ }
