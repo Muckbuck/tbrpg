@@ -18,7 +18,7 @@ namespace Server{
     app.get('/map', map);
     
     // Set server to listen at given port
-    const port = 3000;
+    const port = 3001;
     http.listen(port, () => {
         console.log(`Listening on port: ${port}` )
     });
