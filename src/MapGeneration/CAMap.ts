@@ -5,56 +5,63 @@ class CAMap{
     width: number;
     height: number;
     map: number[][];
+    chanceToSpawnWall: number;
     
     constructor(width: number, height: number){
         this.width = width;
         this.height = height;
+        this.chanceToSpawnWall = 0.45;
     }
 
 
     protected generateInitialMap(){
         const map: number[][] = [];
 
-        for(let x = 0; x < this.width; x++){
-            let column = []
-            for(let y = 0; y < this.height; y++){
-                if(x === 0 || y === 0 || x === this.width - 1 || y === this.height -1){
-                    column.push(1);
-                }else{
-                    column.push(Math.floor(Math.random() * 2));
-                } 
+        for(let y = 0; y < this.height; y++){
+            let row = []
+            for(let x = 0; x < this.width; x++){
+                if(y === 0 || x === 0 || x === this.width - 1 || y === this.height -1){
+                    row.push(1)
+                }
+                else{
+                    if(Math.random() < this.chanceToSpawnWall){
+                        row.push(1);
+                    }else{
+                        row.push(0);
+                    }
+                }
             }   
-            map.push(column);
+            map.push(row);
         }
         
         this.map = map;
-        this.printMapToFile();
     }
 
-    protected printMapToFile(){
-        for(let y: number = 0; y < this.height; y++){               
-            fs.appendFile("./src/MapGeneration/map.txt",  this.map[y].join('') + '\n', function (err:any) {
-                if (err) console.log(err);
-            });
+    protected printMap(){
+        for(let y: number = 1; y < this.map.length; y++){               
+            console.log(this.map[y].join(''))
         }
     }
 
-    // Iterate over each tile on the map, look at it's 8 closest neighbours, 
+    // Iterate over each tile on the map and 8 closest neighbours, 
     // if at least 5 of them are walls(1), then the tile is a wall.
      
-    protected iterateMap(){
+    protected iterateMap(generation: number){
 
-        for(let y: number = 0; y < this.height; y++){
-            for(let x: number = 0; x < this.width; x++){
+        for(let y: number = 0; y < this.map.length - 1; y++){
+            for(let x: number = 0; x < this.map[y].length - 1; x++){
                 const rows: number[] = [y - 1, y, y + 1];
                 const tiles: number[] = [x - 1, x, x + 1];
-                const adjecantWalls = this.getAdjecantWalls(tiles,rows);
-              
+                const adjecantWalls = this.getAdjecantWalls(rows, tiles);
+         
                 if(adjecantWalls >= 5){
                     this.map[y][x] = 1;
+
                 }else{
                     this.map[y][x] = 0;
+
                 }
+                
             }   
         }
     }
@@ -62,8 +69,8 @@ class CAMap{
     protected getAdjecantWalls(tiles: number[], rows: number[]){
         let walls = 0;
         
-        for(let i = 0; i < 3; i++){
-            for(let x = 0; x < 3; x++){
+        for(let i = 0; i <= 2; i++){
+            for(let x = 0; x <= 2; x++){
                 if(!this.map[rows[i]]){
                     walls += 3;
                 }else if(this.map[rows[i]][tiles[x]] == 1){
@@ -77,11 +84,11 @@ class CAMap{
     public generateMapLayout(){
         this.generateInitialMap();
 
-        for(let generation = 0; generation <= 5; generation++){
-            this.iterateMap();
-            this.printMapToFile();        
+        for(let generation: number = 0; generation <= 10; generation++){
+            this.iterateMap(generation);       
         }
 
+        this.printMap(); 
         return this.map;
     }
 }
