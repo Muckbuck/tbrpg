@@ -38,7 +38,7 @@ export default class Map {
     }
     
     getMap = function () {
-        return fetch('http://localhost:3001/map?width=50&height=50')
+        return fetch('http://' + window.location.hostname + ':3001/map?width=50&height=50')
         .then((response) => {
             return response.json();
         })

@@ -8,7 +8,7 @@ namespace Socket{
 
   class ClientSocket{
     connect(){
-      const socket = io.connect('localhost:3000');
+      const socket = io.connect(window.location.hostname + ':3001');
       
       socket.on('news', (data: SocketData) => {
         console.log('Connected');
