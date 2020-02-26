@@ -33,12 +33,12 @@ class CAMap{
             }   
             map.push(row);
         }
-        
         this.map = map;
+        this.printMap();
     }
 
     protected printMap(){
-        for(let y: number = 1; y < this.map.length; y++){               
+        for(let y: number = 0; y < this.map.length; y++){               
             console.log(this.map[y].join(''))
         }
     }
@@ -48,7 +48,7 @@ class CAMap{
      
     protected iterateMap(generation: number){
 
-        for(let y: number = 0; y < this.map.length - 1; y++){
+        for(let y: number = 1; y < this.map.length - 1; y++){
             for(let x: number = 0; x < this.map[y].length - 1; x++){
                 const rows: number[] = [y - 1, y, y + 1];
                 const tiles: number[] = [x - 1, x, x + 1];
