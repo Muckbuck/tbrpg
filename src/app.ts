@@ -5,24 +5,39 @@ namespace Server{
     const http = require('http').Server(app);
     const io = require('socket.io')(http);
     const path = require('path');
-    const sass = require('sass');
     const hbs = require( 'express-handlebars');
     const sassMw = require('node-sass-middleware');
+    const mongoose = require('mongoose');
+    const bodyParser = require('body-parser');
     
     // Require routes
-    const home = require('../src/routes/home.ts');
-    const map = require('../src/routes/map');
+    const home = require('./routes/home.ts');
+    const map = require('./routes/map');
+    const registerAccount = require('./routes/registerAccount');
 
+    app.use(express.json());
     //  Routing
     app.get('/', home);
     app.get('/map', map);
+    app.post('/registeraccount', registerAccount)
     
+   
     // Set server to listen at given port
     const port = 3001;
     http.listen(port, () => {
         console.log(`Listening on port: ${port}` )
     });
     
+    // Connect to db
+    mongoose.connect('mongodb://localhost:27017/tbprg', {useNewUrlParser: true, useUnifiedTopology: true});
+
+    var db = mongoose.connection;
+    db.on('error', console.error.bind(console, 'connection error:'));
+    db.once('open', function() {
+    // we're connected!
+        console.dir('Connected to db');
+    });
+
     app.use(sassMw({
         /* Options */
         src: path.join(__dirname, '/../src/public/sass'),
