@@ -11,17 +11,17 @@ namespace controllers{
         }
 
         registerUser(){
-        let newUser = new userModel();
-        
-        newUser.username = this.username;
-        newUser.password = this.password;
+            let newUser = new userModel();
+            
+            newUser.username = this.username;
+            newUser.password = this.password;
 
-        newUser.save().then((doc: any) => {
-            return true;
-        })
-        .catch((err: any) => {
-            console.error(err)
-        })
+            newUser.save().then((doc: any) => {
+                return true;
+            })
+            .catch((err: any) => {
+                console.error(err)
+            })
         }
     }
 

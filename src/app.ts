@@ -1,5 +1,6 @@
 namespace Server{
     
+    // Dependencies
     const express = require('express')
     const app = express()
     const http = require('http').Server(app);
@@ -8,19 +9,20 @@ namespace Server{
     const hbs = require( 'express-handlebars');
     const sassMw = require('node-sass-middleware');
     const mongoose = require('mongoose');
-    const bodyParser = require('body-parser');
-    
-    // Require routes
-    const home = require('./routes/home.ts');
-    const map = require('./routes/map');
-    const registerAccount = require('./routes/registerAccount');
 
+    // Parse request middleware
     app.use(express.json());
-    //  Routing
-    app.get('/', home);
-    app.get('/map', map);
-    app.post('/registeraccount', registerAccount)
     
+    // Routes
+    const home = require('./routes/pages/home.ts');
+    const map = require('./routes/api/map');
+    const register = require('./routes/api/register');
+
+    app.get('/', register);
+    app.get('/home', home);
+    app.get('/map', map);
+    app.post('/register', register)
+
    
     // Set server to listen at given port
     const port = 3001;
@@ -38,6 +40,7 @@ namespace Server{
         console.dir('Connected to db');
     });
 
+    // Scss compilation
     app.use(sassMw({
         /* Options */
         src: path.join(__dirname, '/../src/public/sass'),
