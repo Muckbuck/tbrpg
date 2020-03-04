@@ -1,3 +1,7 @@
+// Add path to source dir, to the global object
+declare const rootPath: string;
+eval("rootPath = __dirname;")
+
 namespace Server{
     
     // Dependencies
@@ -9,6 +13,7 @@ namespace Server{
     const hbs = require( 'express-handlebars');
     const sassMw = require('node-sass-middleware');
     const mongoose = require('mongoose');
+    const AccountManager = require('./AccountManager');    
 
     // Parse request middleware
     app.use(express.json());

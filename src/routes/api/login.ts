@@ -1,5 +1,5 @@
 namespace Routes {
-    const User = require('../controllers/user');
+    const User = require(rootPath + '/controllers/user');
 
     const login =  function(req:any, res:any, next:any) {
         let newUser = new User(req.body.username, req.body.password);

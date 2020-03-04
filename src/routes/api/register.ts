@@ -1,5 +1,5 @@
 namespace Routes {
-    const User = require('../controllers/user');
+    const User = require(rootPath + '/controllers/user');
 
     const register =  function(req:any, res:any, next:any) {
         console.dir(__dirname);
